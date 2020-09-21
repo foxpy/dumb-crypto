@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.1)
+project(DumbCrypto)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED True)
+add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+if (NOT MSVC)
+	add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+add_subdirectory(crypto)
