@@ -8,3 +8,9 @@ if (NOT MSVC)
 endif()
 
 add_subdirectory(crypto)
+
+option(DC_TESTS "Build tests" OFF)
+if(DC_TESTS)
+	enable_testing()
+	add_subdirectory(tests)
+endif()
