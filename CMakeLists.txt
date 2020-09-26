@@ -7,6 +7,8 @@ if (NOT MSVC)
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+add_subdirectory(qc)
+
 add_subdirectory(unicode)
 add_subdirectory(crypto)
 
