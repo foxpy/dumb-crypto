@@ -8,3 +8,4 @@ endfunction()
 
 dc_add_test(unicode-len-test)
 dc_add_test(caesar-cipher-test)
+dc_add_test(string-test)
