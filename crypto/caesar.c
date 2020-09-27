@@ -11,9 +11,10 @@ static char const* shift_table[] = {
         "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь",
         "Э", "Ю", "Я",
 };
+#define ALPHABET_LENGTH (sizeof(shift_table)/sizeof(shift_table[0]))
 
 static ptrdiff_t ord(size_t len, const char symbol[static len]) {
-    for (size_t i = 0; i < sizeof(shift_table)/sizeof(shift_table[0]); ++i) {
+    for (size_t i = 0; i < ALPHABET_LENGTH; ++i) {
         if (strncmp(shift_table[i], symbol, len) == 0) {
             return i;
         }
@@ -22,10 +23,10 @@ static ptrdiff_t ord(size_t len, const char symbol[static len]) {
 }
 
 static char const* chr(size_t index) {
-    return shift_table[index];
+    return shift_table[index % ALPHABET_LENGTH];
 }
 
-static char* caesar_cipher_impl(const char* input_str, ptrdiff_t shift) {
+static char* caesar_cipher_impl(const char* input_str, size_t shift) {
     str* encrypted = str_new();
     size_t i = 0, end = strlen(input_str);
     while (i <= end) {
@@ -41,7 +42,7 @@ static char* caesar_cipher_impl(const char* input_str, ptrdiff_t shift) {
 
 char* caesar_cipher_encrypt(const char* input_str, size_t key) {
     assert(input_str != NULL);
-    if (key >= sizeof(shift_table)/sizeof(shift_table[0])) {
+    if (key >= ALPHABET_LENGTH || key == 0) {
         return NULL;
     } else {
         return caesar_cipher_impl(input_str, key);
@@ -50,9 +51,9 @@ char* caesar_cipher_encrypt(const char* input_str, size_t key) {
 
 char* caesar_cipher_decrypt(const char* input_str, size_t key) {
     assert(input_str != NULL);
-    if (key >= sizeof(shift_table)/sizeof(shift_table[0])) {
+    if (key >= sizeof(shift_table)/sizeof(shift_table[0]) || key == 0) {
         return NULL;
     } else {
-        return caesar_cipher_impl(input_str, -key);
+        return caesar_cipher_impl(input_str, ALPHABET_LENGTH - key);
     }
 }
