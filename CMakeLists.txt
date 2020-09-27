@@ -10,6 +10,7 @@ endif()
 add_subdirectory(qc)
 
 add_subdirectory(unicode)
+add_subdirectory(string)
 add_subdirectory(crypto)
 
 option(DC_TESTS "Build tests" OFF)
