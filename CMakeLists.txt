@@ -13,6 +13,9 @@ add_subdirectory(unicode)
 add_subdirectory(string)
 add_subdirectory(crypto)
 
+add_executable(caesar caesar.c)
+target_link_libraries(caesar PUBLIC Crypto qc)
+
 option(DC_TESTS "Build tests" OFF)
 if(DC_TESTS)
     enable_testing()
