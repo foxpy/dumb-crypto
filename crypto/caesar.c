@@ -1,7 +1,9 @@
 #include "crypto.h"
 #include "unicode.h"
+#include "str.h"
 #include <stddef.h>
 #include <string.h>
+#include <assert.h>
 
 static char const* shift_table[] = {
         "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И",
@@ -24,17 +26,33 @@ static char const* chr(size_t index) {
 }
 
 static char* caesar_cipher_impl(const char* input_str, ptrdiff_t shift) {
+    str* encrypted = str_new();
     size_t i = 0, end = strlen(input_str);
     while (i <= end) {
         size_t symbol_length = unicode_symbol_len(&input_str[i]);
         ptrdiff_t index = ord(symbol_length, &input_str[i]);
-        if (index == -1) {
-            i += symbol_length;
-            continue;
-        } else {
-            char const* encrypted = chr(index + shift);
-            (void) encrypted; // TODO: do something with encrypted symbol
+        if (index != -1) {
+            str_push_back(encrypted, chr(index + shift));
         }
+        i += symbol_length;
     }
-    return NULL;
+    return str_to_c(encrypted);
+}
+
+char* caesar_cipher_encrypt(const char* input_str, size_t key) {
+    assert(input_str != NULL);
+    if (key >= sizeof(shift_table)/sizeof(shift_table[0])) {
+        return NULL;
+    } else {
+        return caesar_cipher_impl(input_str, key);
+    }
+}
+
+char* caesar_cipher_decrypt(const char* input_str, size_t key) {
+    assert(input_str != NULL);
+    if (key >= sizeof(shift_table)/sizeof(shift_table[0])) {
+        return NULL;
+    } else {
+        return caesar_cipher_impl(input_str, -key);
+    }
 }
