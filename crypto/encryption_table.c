@@ -1,5 +1,7 @@
 #include <stddef.h>
 #include <string.h>
+#include <stdbool.h>
+#include <assert.h>
 #include "str.h"
 #include "crypto.h"
 #include "qc.h"
@@ -16,7 +18,18 @@ static char const** mat_shuffle(char const** mat, size_t x, size_t y) {
     return tmp;
 }
 
-char* encryption_table_encrypt(const char* input_str, size_t x, size_t y) {
+static char const** mat_deshuffle(char const** mat, size_t x, size_t y) {
+    char const** tmp = emalloc(x * y * sizeof(char const*));
+    for (size_t i = 0; i < x; ++i) {
+        for (size_t j = 0; j < y; ++j) {
+            tmp[y*i + j] = mat[x*j + i];
+        }
+    }
+    free(mat);
+    return tmp;
+}
+
+char* encryption_table_impl(const char* input_str, size_t x, size_t y, bool encrypt) {
     str* encrypted = str_new();
     char const** mat = emalloc(x * y * sizeof(char const*));
     size_t mat_fill = 0;
@@ -25,7 +38,11 @@ char* encryption_table_encrypt(const char* input_str, size_t x, size_t y) {
         size_t symbol_length = unicode_symbol_len(&input_str[i]);
         if (mat_fill == x * y) {
             mat_fill = 0;
-            mat = mat_shuffle(mat, x, y);
+            if (encrypt) {
+                mat = mat_shuffle(mat, x, y);
+            } else {
+                mat = mat_deshuffle(mat, x, y);
+            }
             char buf[8];
             for (size_t j = 0; j < x * y; ++j) {
                 strncpy(buf, mat[j], unicode_symbol_len(mat[j]));
@@ -41,6 +58,14 @@ char* encryption_table_encrypt(const char* input_str, size_t x, size_t y) {
     return str_to_c(encrypted);
 }
 
+char* encryption_table_encrypt(const char* input_str, size_t x, size_t y) {
+    assert(input_str != NULL);
+    assert(x > 0 && y > 0);
+    return encryption_table_impl(input_str, x, y, true);
+}
+
 char* encryption_table_decrypt(const char* input_str, size_t x, size_t y) {
-    return NULL;
+    assert(input_str != NULL);
+    assert(x > 0 && y > 0);
+    return encryption_table_impl(input_str, x, y, false);
 }
