@@ -19,6 +19,9 @@ target_link_libraries(caesar PUBLIC Crypto qc)
 add_executable(affine-caesar affine-caesar.c)
 target_link_libraries(affine-caesar PUBLIC Crypto qc)
 
+add_executable(encryption-table encryption-table.c)
+target_link_libraries(encryption-table PUBLIC Crypto qc)
+
 option(DC_TESTS "Build tests" OFF)
 if(DC_TESTS)
     enable_testing()
