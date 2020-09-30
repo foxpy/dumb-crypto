@@ -26,4 +26,6 @@ int main(int argc, char* argv[]) {
         printf("%s\n", cipher_output);
         free(cipher_output);
     }
+    free(mode);
+    qc_args_free(args);
 }
