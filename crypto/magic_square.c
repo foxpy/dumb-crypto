@@ -13,7 +13,7 @@ static bool is_magic_square(size_t len, size_t const square[static len]) {
     if (a * a != len) {
         return false;
     } else {
-        size_t sum = 0, target_sum = 0;
+        size_t sum, target_sum = 0;
         for (size_t i = 0; i < a; ++i) {
             target_sum += square[i];
         }
@@ -78,4 +78,30 @@ char* magic_square_encrypt(const char* input_str, size_t len, size_t const squar
     }
     free(mat);
     return str_to_c(encrypted);
+}
+
+char* magic_square_decrypt(const char* input_str, size_t len, size_t const square[static len]) {
+    assert(input_str != NULL);
+    assert(is_magic_square(len, square));
+    str* decrypted = str_new();
+    char const** mat = emalloc(len * sizeof(char const*));
+    size_t mat_fill = 0;
+    size_t i = 0, end = strlen(input_str);
+    while (i <= end) {
+        size_t symbol_length = unicode_symbol_len(&input_str[i]);
+        if (mat_fill == len) {
+            mat_fill = 0;
+            for (size_t j = 1; j <= len; ++j) {
+                char buf[8];
+                strncpy(buf, mat[to_index(len, square, j)], unicode_symbol_len(mat[to_index(len, square, j)]));
+                buf[unicode_symbol_len(mat[to_index(len, square, j)])] = '\0';
+                str_push_back(decrypted, buf);
+            }
+        }
+        mat[mat_fill] = &input_str[i];
+        ++mat_fill;
+        i += symbol_length;
+    }
+    free(mat);
+    return str_to_c(decrypted);
 }
