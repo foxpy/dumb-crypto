@@ -6,6 +6,9 @@ add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
 if (NOT MSVC)
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
+if (NOT WIN32)
+    link_libraries(m)
+endif()
 
 add_subdirectory(qc)
 
