@@ -15,15 +15,7 @@ add_subdirectory(qc)
 add_subdirectory(unicode)
 add_subdirectory(string)
 add_subdirectory(crypto)
-
-add_executable(caesar caesar.c)
-target_link_libraries(caesar PUBLIC Crypto qc)
-
-add_executable(affine-caesar affine-caesar.c)
-target_link_libraries(affine-caesar PUBLIC Crypto qc)
-
-add_executable(encryption-table encryption-table.c)
-target_link_libraries(encryption-table PUBLIC Crypto qc)
+add_subdirectory(cmd)
 
 option(DC_TESTS "Build tests" OFF)
 if(DC_TESTS)
