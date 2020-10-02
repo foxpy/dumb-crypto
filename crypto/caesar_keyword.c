@@ -77,3 +77,24 @@ char* caesar_keyword_cipher_encrypt(const char* input_str, size_t k, char const*
     free(table);
     return str_to_c(encrypted);
 }
+
+char* caesar_keyword_cipher_decrypt(const char* input_str, size_t k, char const* key) {
+    assert(k < ALPHABET_LENGTH);
+    str* decrypted = str_new();
+    lookup_table* table = generate_table(k, key);
+    size_t i = 0, end = strlen(input_str);
+    while (i <= end) {
+        size_t symbol_length = unicode_symbol_len(&input_str[i]);
+        for (size_t j = 0; j < ALPHABET_LENGTH; ++j) {
+            if (strncmp(table[j].to, &input_str[i], symbol_length) == 0) {
+                char buf[8];
+                strncpy(buf, table[j].from, unicode_symbol_len(table[j].from));
+                buf[unicode_symbol_len(table[j].from)] = '\0';
+                str_push_back(decrypted, buf);
+            }
+        }
+        i += symbol_length;
+    }
+    free(table);
+    return str_to_c(decrypted);
+}
