@@ -40,7 +40,7 @@ static char* caesar_cipher_impl(const char* input_str, size_t shift) {
     return str_to_c(encrypted);
 }
 
-char* caesar_cipher_encrypt(const char* input_str, size_t key) {
+char* caesar_cipher_encrypt(char const* input_str, size_t key) {
     assert(input_str != NULL);
     if (key >= ALPHABET_LENGTH || key == 0) {
         return NULL;
@@ -49,7 +49,7 @@ char* caesar_cipher_encrypt(const char* input_str, size_t key) {
     }
 }
 
-char* caesar_cipher_decrypt(const char* input_str, size_t key) {
+char* caesar_cipher_decrypt(char const* input_str, size_t key) {
     assert(input_str != NULL);
     if (key >= sizeof(shift_table)/sizeof(shift_table[0]) || key == 0) {
         return NULL;

@@ -55,7 +55,7 @@ static size_t to_index(size_t len, size_t const square[static len], size_t num) 
     UNREACHABLE_CODE();
 }
 
-char* magic_square_encrypt(const char* input_str, size_t len, size_t const square[static len]) {
+char* magic_square_encrypt(char const* input_str, size_t len, size_t const square[static len]) {
     assert(input_str != NULL);
     assert(is_magic_square(len, square));
     str* encrypted = str_new();
@@ -80,7 +80,7 @@ char* magic_square_encrypt(const char* input_str, size_t len, size_t const squar
     return str_to_c(encrypted);
 }
 
-char* magic_square_decrypt(const char* input_str, size_t len, size_t const square[static len]) {
+char* magic_square_decrypt(char const* input_str, size_t len, size_t const square[static len]) {
     assert(input_str != NULL);
     assert(is_magic_square(len, square));
     str* decrypted = str_new();

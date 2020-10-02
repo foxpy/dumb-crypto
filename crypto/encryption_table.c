@@ -58,13 +58,13 @@ char* encryption_table_impl(const char* input_str, size_t x, size_t y, bool encr
     return str_to_c(encrypted);
 }
 
-char* encryption_table_encrypt(const char* input_str, size_t x, size_t y) {
+char* encryption_table_encrypt(char const* input_str, size_t x, size_t y) {
     assert(input_str != NULL);
     assert(x > 0 && y > 0);
     return encryption_table_impl(input_str, x, y, true);
 }
 
-char* encryption_table_decrypt(const char* input_str, size_t x, size_t y) {
+char* encryption_table_decrypt(char const* input_str, size_t x, size_t y) {
     assert(input_str != NULL);
     assert(x > 0 && y > 0);
     return encryption_table_impl(input_str, x, y, false);

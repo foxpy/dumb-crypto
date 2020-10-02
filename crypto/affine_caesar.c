@@ -57,10 +57,10 @@ static char* affine_caesar_cipher_impl(const char* input_str, size_t a, size_t b
     return str_to_c(ret);
 }
 
-char* affine_caesar_cipher_encrypt(const char* input_str, size_t a, size_t b) {
+char* affine_caesar_cipher_encrypt(char const* input_str, size_t a, size_t b) {
     return affine_caesar_cipher_impl(input_str, a, b, true);
 }
 
-char* affine_caesar_cipher_decrypt(const char* input_str, size_t a, size_t b) {
+char* affine_caesar_cipher_decrypt(char const* input_str, size_t a, size_t b) {
     return affine_caesar_cipher_impl(input_str, a, b, false);
 }
