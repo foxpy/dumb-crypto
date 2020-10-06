@@ -15,3 +15,6 @@ char* caesar_keyword_cipher_decrypt(const char* input_str, size_t k, char const*
 
 char* magic_square_encrypt(char const* input_str, size_t len, size_t const square[static len]);
 char* magic_square_decrypt(char const* input_str, size_t len, size_t const square[static len]);
+
+char* trithemius_cipher_encrypt(char const* input_str, size_t x, size_t y, char const* key);
+char* trithemius_cipher_decrypt(char const* input_str, size_t x, size_t y, char const* key);

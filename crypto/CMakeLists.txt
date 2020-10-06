@@ -4,6 +4,7 @@ add_library(Crypto
     encryption_table.c
     magic_square.c
     caesar_keyword.c
+    trithemius.c
 )
 target_link_libraries(Crypto PUBLIC Unicode String)
 target_include_directories(Crypto INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
