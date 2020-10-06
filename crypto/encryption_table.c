@@ -43,11 +43,8 @@ char* encryption_table_impl(const char* input_str, size_t x, size_t y, bool encr
             } else {
                 mat = mat_deshuffle(mat, x, y);
             }
-            char buf[8];
             for (size_t j = 0; j < x * y; ++j) {
-                strncpy(buf, mat[j], unicode_symbol_len(mat[j]));
-                buf[unicode_symbol_len(mat[j])] = '\0';
-                str_push_back(encrypted, buf);
+                str_push_unicode_character_back(encrypted, mat[j]);
             }
         }
         mat[mat_fill] = &input_str[i];

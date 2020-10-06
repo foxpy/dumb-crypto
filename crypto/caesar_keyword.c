@@ -66,10 +66,7 @@ char* caesar_keyword_cipher_encrypt(const char* input_str, size_t k, char const*
         size_t symbol_length = unicode_symbol_len(&input_str[i]);
         for (size_t j = 0; j < ALPHABET_LENGTH; ++j) {
             if (strncmp(table[j].from, &input_str[i], symbol_length) == 0) {
-                char buf[8];
-                strncpy(buf, table[j].to, unicode_symbol_len(table[j].to));
-                buf[unicode_symbol_len(table[j].to)] = '\0';
-                str_push_back(encrypted, buf);
+                str_push_unicode_character_back(encrypted, table[j].to);
             }
         }
         i += symbol_length;
@@ -87,10 +84,7 @@ char* caesar_keyword_cipher_decrypt(const char* input_str, size_t k, char const*
         size_t symbol_length = unicode_symbol_len(&input_str[i]);
         for (size_t j = 0; j < ALPHABET_LENGTH; ++j) {
             if (strncmp(table[j].to, &input_str[i], symbol_length) == 0) {
-                char buf[8];
-                strncpy(buf, table[j].from, unicode_symbol_len(table[j].from));
-                buf[unicode_symbol_len(table[j].from)] = '\0';
-                str_push_back(decrypted, buf);
+                str_push_unicode_character_back(decrypted, table[j].from);
             }
         }
         i += symbol_length;

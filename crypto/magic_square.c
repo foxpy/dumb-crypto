@@ -66,10 +66,7 @@ char* magic_square_encrypt(char const* input_str, size_t len, size_t const squar
         if (j > len) {
             j = 1;
             for (size_t k = 0; k < len; ++k) {
-                char buf[8];
-                strncpy(buf, mat[k], unicode_symbol_len(mat[k]));
-                buf[unicode_symbol_len(mat[k])] = '\0';
-                str_push_back(encrypted, buf);
+                str_push_unicode_character_back(encrypted, mat[k]);
             }
         }
         mat[to_index(len, square, j)] = &input_str[i];
@@ -92,10 +89,7 @@ char* magic_square_decrypt(char const* input_str, size_t len, size_t const squar
         if (mat_fill == len) {
             mat_fill = 0;
             for (size_t j = 1; j <= len; ++j) {
-                char buf[8];
-                strncpy(buf, mat[to_index(len, square, j)], unicode_symbol_len(mat[to_index(len, square, j)]));
-                buf[unicode_symbol_len(mat[to_index(len, square, j)])] = '\0';
-                str_push_back(decrypted, buf);
+                str_push_unicode_character_back(decrypted, mat[to_index(len, square, j)]);
             }
         }
         mat[mat_fill] = &input_str[i];

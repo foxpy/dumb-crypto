@@ -59,10 +59,7 @@ char* trithemius_cipher_encrypt(char const* input_str, size_t x, size_t y, char 
         ptrdiff_t plaintext_index = table_lookup(x * y, table, &input_str[i]);
         if (plaintext_index != -1) {
             size_t ciphertext_index = (plaintext_index + x) % (x * y);
-            char buf[8];
-            strncpy(buf, table[ciphertext_index], unicode_symbol_len(table[ciphertext_index]));
-            buf[unicode_symbol_len(table[ciphertext_index])] = '\0';
-            str_push_back(encrypted, buf);
+            str_push_unicode_character_back(encrypted, table[ciphertext_index]);
         }
         i += symbol_length;
     }
@@ -79,10 +76,7 @@ char* trithemius_cipher_decrypt(char const* input_str, size_t x, size_t y, char 
         ptrdiff_t ciphertext_index = table_lookup(x * y, table, &input_str[i]);
         if (ciphertext_index != -1) {
             size_t plaintext_index = (ciphertext_index + (x * y) - x) % (x * y);
-            char buf[8];
-            strncpy(buf, table[plaintext_index], unicode_symbol_len(table[plaintext_index]));
-            buf[unicode_symbol_len(table[plaintext_index])] = '\0';
-            str_push_back(decrypted, buf);
+            str_push_unicode_character_back(decrypted, table[plaintext_index]);
         }
         i += symbol_length;
     }
