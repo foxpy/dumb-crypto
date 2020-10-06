@@ -18,3 +18,6 @@ char* magic_square_decrypt(char const* input_str, size_t len, size_t const squar
 
 char* trithemius_cipher_encrypt(char const* input_str, size_t x, size_t y, char const* key);
 char* trithemius_cipher_decrypt(char const* input_str, size_t x, size_t y, char const* key);
+
+char* playfair_cipher_encrypt(char const* input_str, size_t x, size_t y, char const* key);
+char* playfair_cipher_decrypt(char const* input_str, size_t x, size_t y, char const* key);
