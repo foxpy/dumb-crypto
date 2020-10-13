@@ -24,10 +24,58 @@ static ptrdiff_t table_lookup(size_t len, char const* table[static len], char co
 
 static void playfair_lookup(char const** out1, char const** out2,
                             char const* in1, char const* in2,
-                            size_t len, char const* table[static len]) {
-    // TODO: proper implementation with table lookup
-    *out1 = "А";
-    *out2 = "Б";
+                            size_t x, size_t y, char const* table[static x * y]) {
+    ptrdiff_t in_index1 = table_lookup(x * y, table, in1);
+    ptrdiff_t in_index2 = table_lookup(x * y, table, in2);
+    assert(in_index1 != -1);
+    assert(in_index2 != -1);
+    size_t x1 = in_index1 % x;
+    size_t x2 = in_index2 % x;
+    size_t y1 = in_index1 / x;
+    size_t y2 = in_index2 / x;
+    if (x1 == x2) {
+        y1 = (y1 + 1) % y;
+        y2 = (y2 + 1) % y;
+    } else if (y1 == y2) {
+        x1 = (x1 + 1) % x;
+        x2 = (x2 + 1) % x;
+    } else {
+        size_t tmp = x1;
+        x1 = x2;
+        x2 = tmp;
+    }
+    size_t out_index1 = y1 * x + x1;
+    size_t out_index2 = y2 * x + x2;
+    *out1 = table[out_index1];
+    *out2 = table[out_index2];
+}
+
+static void playfair_lookup_reverse(char const** out1, char const** out2,
+                                    char const* in1, char const* in2,
+                                    size_t x, size_t y, char const* table[static x * y]) {
+    ptrdiff_t in_index1 = table_lookup(x * y, table, in1);
+    ptrdiff_t in_index2 = table_lookup(x * y, table, in2);
+    assert(in_index1 != -1);
+    assert(in_index2 != -1);
+    size_t x1 = in_index1 % x;
+    size_t x2 = in_index2 % x;
+    size_t y1 = in_index1 / x;
+    size_t y2 = in_index2 / x;
+    if (x1 == x2) {
+        y1 = (y1 + y - 1) % y;
+        y2 = (y2 + y - 1) % y;
+    } else if (y1 == y2) {
+        x1 = (x1 + x - 1) % x;
+        x2 = (x2 + x - 1) % x;
+    } else {
+        size_t tmp = x1;
+        x1 = x2;
+        x2 = tmp;
+    }
+    size_t out_index1 = y1 * x + x1;
+    size_t out_index2 = y2 * x + x2;
+    *out1 = table[out_index1];
+    *out2 = table[out_index2];
 }
 
 static char const** create_table(size_t x, size_t y, char const* key) {
@@ -100,21 +148,44 @@ char* playfair_cipher_encrypt(char const* input_str, size_t x, size_t y, char co
     char* bigraphed = bigraphic_substitution(input_str);
     char const** table = create_table(x, y, key);
     size_t i = 0, end = strlen(bigraphed);
-    while (i <= end) {
+    while (i < end) {
         size_t symbol_length1 = unicode_symbol_len(&bigraphed[i]);
-        char* plaintext_character1 = &bigraphed[i];
+        char const* plaintext_character1 = &bigraphed[i];
         i += symbol_length1;
-        char* plaintext_character2 = &bigraphed[i];
+        char const* plaintext_character2 = &bigraphed[i];
         size_t symbol_length2 = unicode_symbol_len(&bigraphed[i]);
         i += symbol_length2;
         char const* ciphertext_character1;
         char const* ciphertext_character2;
         playfair_lookup(&ciphertext_character1, &ciphertext_character2,
-                        plaintext_character1, plaintext_character2, x * y, table);
+                        plaintext_character1, plaintext_character2, x, y, table);
         str_push_unicode_character_back(encrypted, ciphertext_character1);
         str_push_unicode_character_back(encrypted, ciphertext_character2);
     }
     free(bigraphed);
     free(table);
     return str_to_c(encrypted);
+}
+
+char* playfair_cipher_decrypt(char const* input_str, size_t x, size_t y, char const* key) {
+    assert(strlen(input_str) % 2 == 0);
+    str* decrypted = str_new();
+    char const** table = create_table(x, y, key);
+    size_t i = 0, end = strlen(input_str);
+    while (i < end) {
+        size_t symbol_length1 = unicode_symbol_len(&input_str[i]);
+        char const* ciphertext_character1 = &input_str[i];
+        i += symbol_length1;
+        size_t symbol_length2 = unicode_symbol_len(&input_str[i]);
+        char const* ciphertext_character2 = &input_str[i];
+        i += symbol_length2;
+        char const* plaintext_character1;
+        char const* plaintext_character2;
+        playfair_lookup_reverse(&plaintext_character1, &plaintext_character2,
+                                ciphertext_character1, ciphertext_character2, x, y, table);
+        str_push_unicode_character_back(decrypted, plaintext_character1);
+        str_push_unicode_character_back(decrypted, plaintext_character2);
+    }
+    free(table);
+    return str_to_c(decrypted);
 }
