@@ -2,6 +2,7 @@ add_library(Crypto
     caesar.c
     affine_caesar.c
     encryption_table.c
+    encryption_table_single_permutation.c
     magic_square.c
     caesar_keyword.c
     trithemius.c
