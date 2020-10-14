@@ -22,5 +22,11 @@ int main() {
         qc_assert(unicode_symbol_len(four_byte_emojis[i]) == 4, "Expected 4 bytes");
     }
 
+    qc_assert(unicode_characters("") == 0, "Expected 0");
+    qc_assert(unicode_characters("qwer") == 4, "Expected 4");
+    qc_assert(unicode_characters("qwаб") == 4, "Expected 4");
+    qc_assert(unicode_characters("проверка") == 8, "Expected 8");
+    qc_assert(unicode_characters("I only talk русский.") == 20, "Expected 20");
+
     exit(EXIT_SUCCESS);
 }

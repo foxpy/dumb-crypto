@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdint.h>
 #include "unicode.h"
 
@@ -16,4 +17,15 @@ size_t unicode_symbol_len(char const str[static 1]) {
     } else {
         return 6;
     }
+}
+
+size_t unicode_characters(char const str[static 1]) {
+    size_t i = 0, end = strlen(str);
+    size_t ret = 0;
+    while (i < end) {
+        size_t symbol_length = unicode_symbol_len(&str[i]);
+        ++ret;
+        i += symbol_length;
+    }
+    return ret;
 }
