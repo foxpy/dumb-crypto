@@ -7,14 +7,6 @@
 #include "unicode.h"
 #include "qc.h"
 
-static char const* alphabet[] = {
-        "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И",
-        "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т",
-        "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь",
-        "Э", "Ю", "Я",
-};
-#define ALPHABET_LENGTH (sizeof(alphabet)/sizeof(alphabet[0]))
-
 static char const** table_encrypt(size_t x, size_t y, char const* table[static x * y],
                                   size_t const horizontal_permutation[static x],
                                   size_t const vertical_permutation[static y]
