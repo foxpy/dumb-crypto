@@ -27,3 +27,6 @@ char* playfair_cipher_decrypt(char const* input_str, size_t x, size_t y, char co
 
 char* vigenere_cipher_encrypt(char const* input_str, char const* key);
 char* vigenere_cipher_decrypt(char const* input_str, char const* key);
+
+char* wheatstone_two_square_encrypt(char const* input_str);
+char* wheatstone_two_square_decrypt(char const* input_str);
