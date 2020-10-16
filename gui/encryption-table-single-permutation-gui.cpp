@@ -42,7 +42,7 @@ void run(Fl_Widget*, void* dat) {
 }
 
 int main(int argc, char *argv[]) {
-    auto* w = new Fl_Window(800, 300, "Caesar Keyword GUI");
+    auto* w = new Fl_Window(800, 300, "Encryption Table Single Permutation GUI");
     run_data run_data{
             new Fl_Input(80, 10, 660, 40, "Ввод:"),
             new Fl_Output(80, 70, 660, 40, "Вывод:"),
