@@ -29,15 +29,15 @@ void run(Fl_Widget*, void* dat) {
     auto* run_data = reinterpret_cast<struct run_data *>(dat);
     char const* input = run_data->input->value();
     size_t horizontal_permutation[4];
-    horizontal_permutation[0] = std::atoi(run_data->h1->value());
-    horizontal_permutation[1] = std::atoi(run_data->h2->value());
-    horizontal_permutation[2] = std::atoi(run_data->h3->value());
-    horizontal_permutation[3] = std::atoi(run_data->h4->value());
+    horizontal_permutation[0] = std::atoi(run_data->h1->value()) - 1;
+    horizontal_permutation[1] = std::atoi(run_data->h2->value()) - 1;
+    horizontal_permutation[2] = std::atoi(run_data->h3->value()) - 1;
+    horizontal_permutation[3] = std::atoi(run_data->h4->value()) - 1;
     size_t vertical_permutation[4];
-    vertical_permutation[0] = std::atoi(run_data->v1->value());
-    vertical_permutation[1] = std::atoi(run_data->v2->value());
-    vertical_permutation[2] = std::atoi(run_data->v3->value());
-    vertical_permutation[3] = std::atoi(run_data->v4->value());
+    vertical_permutation[0] = std::atoi(run_data->v1->value()) - 1;
+    vertical_permutation[1] = std::atoi(run_data->v2->value()) - 1;
+    vertical_permutation[2] = std::atoi(run_data->v3->value()) - 1;
+    vertical_permutation[3] = std::atoi(run_data->v4->value()) - 1;
     if (run_data->check_button->value() == 0) {
         char* encrypted = encryption_table_double_permutation_encrypt(
                 input, 4, horizontal_permutation, 4, vertical_permutation);
