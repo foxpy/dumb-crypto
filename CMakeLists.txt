@@ -15,12 +15,16 @@ add_subdirectory(qc)
 add_subdirectory(unicode)
 add_subdirectory(string)
 add_subdirectory(crypto)
-add_subdirectory(cmd)
 
 option(DC_TESTS "Build tests" OFF)
 if(DC_TESTS)
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+option(DC_CMD "Build CLI tools" OFF)
+if(DC_CMD)
+    add_subdirectory(cmd)
 endif()
 
 option(DC_GUI "Build GUI, requires FLTK and C++ compiler" OFF)
