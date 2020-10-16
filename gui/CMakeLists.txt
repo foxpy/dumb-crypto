@@ -8,3 +8,4 @@ add_executable(encryption-table-single-permutation-gui encryption-table-single-p
 add_executable(encryption-table-double-permutation-gui encryption-table-double-permutation-gui.cpp)
 add_executable(vigenere-gui vigenere-gui.cpp)
 add_executable(wheatstone-two-square-gui wheatstone-two-square-gui.cpp)
+add_executable(playfair-gui playfair-gui.cpp)
