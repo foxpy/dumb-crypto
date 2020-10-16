@@ -57,7 +57,9 @@ static size_t to_index(size_t len, size_t const square[static len], size_t num) 
 
 char* magic_square_encrypt(char const* input_str, size_t len, size_t const square[static len]) {
     assert(input_str != NULL);
-    assert(is_magic_square(len, square));
+    if(!is_magic_square(len, square)) {
+        return NULL;
+    }
     str* encrypted = str_new();
     char const** mat = emalloc(len * sizeof(char const*));
     size_t i = 0, j = 1, end = strlen(input_str);
