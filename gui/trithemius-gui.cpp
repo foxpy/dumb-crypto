@@ -23,14 +23,14 @@ void run(Fl_Widget*, void* dat) {
     char const* input = run_data->input->value();
     char const* key = run_data->key->value();
     if (run_data->check_button->value() == 0) {
-        char *encrypted = trithemius_cipher_encrypt(input, 4, 8, key);
+        char *encrypted = trithemius_cipher_encrypt(input, 8, 4, key);
         if (encrypted == nullptr) {
             return;
         }
         run_data->output->value(encrypted);
         free(encrypted);
     } else {
-        char* decrypted = trithemius_cipher_decrypt(input, 4, 8, key);
+        char* decrypted = trithemius_cipher_decrypt(input, 8, 4, key);
         if (decrypted == nullptr) {
             return;
         }
