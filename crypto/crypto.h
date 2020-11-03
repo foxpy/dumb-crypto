@@ -41,3 +41,6 @@ char* vigenere_cipher_decrypt(char const* input_str, char const* key);
 
 char* wheatstone_two_square_encrypt(char const* input_str);
 char* wheatstone_two_square_decrypt(char const* input_str);
+
+char* polybius_square_encrypt(char const* input_str);
+char* polybius_square_decrypt(char const* input_str);
