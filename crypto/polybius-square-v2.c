@@ -4,7 +4,6 @@
 #include "crypto.h"
 #include "str.h"
 #include "unicode.h"
-#include "qc.h"
 
 static char const* table[] = {
         "A", "B", "C", "D", "E",
@@ -27,10 +26,6 @@ static ptrdiff_t table_lookup(size_t len, char const symbol[len]) {
     } else {
         return -1;
     }
-}
-
-static size_t ctoi(char c) {
-    return c - '0';
 }
 
 char* polybius_square_v2_encrypt(char const* input_str) {
