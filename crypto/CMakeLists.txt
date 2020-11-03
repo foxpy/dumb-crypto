@@ -12,6 +12,7 @@ add_library(Crypto
     wheatstone_two_square.c
     polybius_square.c
     polybius-square-v2.c
+    proportional-permutation.c
 )
 target_link_libraries(Crypto PUBLIC Unicode String)
 target_include_directories(Crypto INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

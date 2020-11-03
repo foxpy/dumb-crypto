@@ -47,3 +47,6 @@ char* polybius_square_decrypt(char const* input_str);
 
 char* polybius_square_v2_encrypt(char const* input_str);
 char* polybius_square_v2_decrypt(char const* input_str);
+
+char* proportional_permutation_encrypt(char const* input_str);
+char* proportional_permutation_decrypt(char const* input_str);
