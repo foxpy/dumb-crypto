@@ -68,7 +68,6 @@ char* polybius_square_decrypt(char const* input_str) {
                 size_t index = y * TABLE_DIM + x;
                 str_push_back(decrypted, table[index]);
                 y = 0;
-                x = 0;
             }
         }
         ++i;
