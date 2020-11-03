@@ -30,7 +30,6 @@ char* proportional_permutation_impl(char const* input_str) {
         ptrdiff_t index = table_lookup(symbol_length, &input_str[i]);
         if (index != -1) {
             index = (2*TABLE_LENGTH - index - 1) % TABLE_LENGTH;
-            char const* wtf = table[index];
             str_push_back(processed, table[index]);
         }
         i += symbol_length;
