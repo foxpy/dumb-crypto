@@ -44,3 +44,6 @@ char* wheatstone_two_square_decrypt(char const* input_str);
 
 char* polybius_square_encrypt(char const* input_str);
 char* polybius_square_decrypt(char const* input_str);
+
+char* polybius_square_v2_encrypt(char const* input_str);
+char* polybius_square_v2_decrypt(char const* input_str);

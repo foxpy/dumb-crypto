@@ -12,3 +12,4 @@ add_executable(encryption-table-single-permutation encryption-table-single-permu
 add_executable(encryption-table-double-permutation encryption-table-double-permutation.c)
 add_executable(wheatstone-two-square wheatstone-two-square.c)
 add_executable(polybius-square polybius-square.c)
+add_executable(polybius-square-v2 polybius-square-v2.c)
